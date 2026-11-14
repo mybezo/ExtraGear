@@ -1,2 +1,3 @@
 options:
+  # Automatically download new development builds (only for "DEV - " builds)
   auto-update: false

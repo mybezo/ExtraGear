@@ -16,7 +16,7 @@
     <repositories>
         <repository>
             <id>paper-repo</id>
-            <url>https://repo.destroystokyo.com/repository/maven-public/</url>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
@@ -68,14 +68,6 @@
                         <relocation>
                             <pattern>org.bstats.bukkit</pattern>
                             <shadedPattern>io.github.thebusybiscuit.extragear.bstats</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>net.guizhanss.guizhanlib</pattern>
-                            <shadedPattern>io.github.thebusybiscuit.extragear.guizhanlib</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>net.guizhanss.minecraft.extragear.util</pattern>
-                            <shadedPattern>io.github.thebusybiscuit.extragear.chineseutil</shadedPattern>
                         </relocation>
                     </relocations>
 
@@ -131,13 +123,6 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>1.7</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.guizhanss</groupId>
-            <artifactId>GuizhanLib</artifactId>
-            <version>0.4.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

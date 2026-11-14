@@ -2,6 +2,7 @@ package io.github.thebusybiscuit.extragear;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Material;
@@ -21,8 +22,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-
-import net.guizhanss.minecraft.extragear.util.MetalUtil;
+import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
 
 public class ExtraGear extends JavaPlugin implements SlimefunAddon {
 
@@ -34,12 +34,12 @@ public class ExtraGear extends JavaPlugin implements SlimefunAddon {
         Config cfg = new Config(this);
 
         if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
-            new GitHubBuildsUpdater(this, getFile(), "ybw0014/ExtraGear-CN/master").start();
+            new GitHubBuildsUpdater(this, getFile(), "TheBusyBiscuit/ExtraGear/master").start();
         }
 
         new Metrics(this, 6469);
 
-        itemGroup = new ItemGroup(new NamespacedKey(this, "items"), new CustomItemStack(Material.DIAMOND_SWORD, "&6更多装备"), 1);
+        itemGroup = new ItemGroup(new NamespacedKey(this, "items"), new CustomItemStack(Material.DIAMOND_SWORD, "&6ExtraGear"), 1);
 
         registerSword(Material.IRON_SWORD, "COPPER", SlimefunItems.COPPER_INGOT, Arrays.asList(new Pair<>(Enchantment.DAMAGE_UNDEAD, 2)));
         registerArmor(ArmorSet.LEATHER, "COPPER", SlimefunItems.COPPER_INGOT, Arrays.asList(new Pair<>(Enchantment.PROTECTION_EXPLOSIONS, 2)));
@@ -85,8 +85,8 @@ public class ExtraGear extends JavaPlugin implements SlimefunAddon {
     }
 
     private void registerSword(Material type, String component, ItemStack item, List<Pair<Enchantment, Integer>> enchantments) {
-        String humanizedComponent = MetalUtil.getName(component);
-        SlimefunItemStack is = new SlimefunItemStack(component + "_SWORD", type, "&r" + humanizedComponent + "剑");
+        String humanizedComponent = ChatUtils.humanize(component);
+        SlimefunItemStack is = new SlimefunItemStack(component + "_SWORD", type, "&r" + humanizedComponent + " Sword");
 
         for (Pair<Enchantment, Integer> enchantment : enchantments) {
             is.addUnsafeEnchantment(enchantment.getFirstValue(), enchantment.getSecondValue());
@@ -97,17 +97,17 @@ public class ExtraGear extends JavaPlugin implements SlimefunAddon {
 
         researchId++;
 
-        Research research = new Research(new NamespacedKey(this, component.toLowerCase() + "_sword"), researchId, humanizedComponent + "剑", 3);
+        Research research = new Research(new NamespacedKey(this, component.toLowerCase(Locale.ROOT) + "_sword"), researchId, humanizedComponent + " Sword", 3);
         research.addItems(slimefunItem);
         research.register();
     }
 
     private void registerArmor(ArmorSet armorset, String component, ItemStack item, List<Pair<Enchantment, Integer>> enchantments) {
-        String humanizedComponent = MetalUtil.getName(component);
-        SlimefunItemStack[] armor = { new SlimefunItemStack(component + "_HELMET", armorset.getHelmet(), "&f" + humanizedComponent + "头盔"),
-                new SlimefunItemStack(component + "_CHESTPLATE", armorset.getChestplate(), "&f" + humanizedComponent + "胸甲"),
-                new SlimefunItemStack(component + "_LEGGINGS", armorset.getLeggings(), "&f" + humanizedComponent + "护腿"),
-                new SlimefunItemStack(component + "_BOOTS", armorset.getBoots(), "&f" + humanizedComponent + "靴子") };
+        String humanizedComponent = ChatUtils.humanize(component);
+        SlimefunItemStack[] armor = { new SlimefunItemStack(component + "_HELMET", armorset.getHelmet(), "&f" + humanizedComponent + " Helmet"),
+                new SlimefunItemStack(component + "_CHESTPLATE", armorset.getChestplate(), "&f" + humanizedComponent + " Chestplate"),
+                new SlimefunItemStack(component + "_LEGGINGS", armorset.getLeggings(), "&f" + humanizedComponent + " Leggings"),
+                new SlimefunItemStack(component + "_BOOTS", armorset.getBoots(), "&f" + humanizedComponent + " Boots") };
 
         for (Pair<Enchantment, Integer> enchantment : enchantments) {
             for (ItemStack is : armor) {
@@ -129,7 +129,7 @@ public class ExtraGear extends JavaPlugin implements SlimefunAddon {
 
         researchId++;
 
-        Research research = new Research(new NamespacedKey(this, component.toLowerCase() + "_armor"), researchId, humanizedComponent + "防具", 5);
+        Research research = new Research(new NamespacedKey(this, component.toLowerCase(Locale.ROOT) + "_armor"), researchId, humanizedComponent + " Armor", 5);
         research.addItems(helmet, chestplate, leggings, boots);
         research.register();
     }
@@ -141,7 +141,7 @@ public class ExtraGear extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public String getBugTrackerURL() {
-        return "https://github.com/ybw0014/ExtraGear-CN/issues";
+        return "https://github.com/TheBusyBiscuit/ExtraGear/issues";
     }
 
 }
